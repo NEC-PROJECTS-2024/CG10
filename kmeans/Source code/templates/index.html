@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Segmentation form</title>
+    <style>
+        body {
+            font-family: bold, arial;
+            background-image: url('/static/1562275268888.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1,h2,p{
+            text-align-last:center;
+        }
+        .container {
+            width: 30%;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Add transparency to make text readable */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            align-self: center;
+            margin-bottom: 30px;
+            margin-left:120px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 8px 12px;
+            background-color: #004cff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Segmentation Form</h1>
+
+        <h2>Predict Spending Score</h2>
+        <form id="spending_score_form" action="/predicted_score" method="POST">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select><br>
+
+            <label for="income">Annual Income (in thousands):</label>
+            <input type="number" id="income" name="income" required><br>
+
+            <button type="submit">Predict Spending Score</button>
+        </form>
+
+        <div id="spending_score_result" class="result">
+            {% if predicted_score is not none %}
+            <p>Predicted Spending Score: {{ predicted_score }}</p>
+            {% endif %}
+        </div>
+
+        <h2>Predict Zone</h2>
+        <form id="zone_form" action="/predicted_zone" method="POST">
+            <label for="age_zone">Age:</label>
+            <input type="number" id="age_zone" name="age_zone" required><br>
+
+            <label for="gender_zone">Gender:</label>
+            <select id="gender_zone" name="gender_zone" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select><br>
+
+            <label for="income_zone">Annual Income (in thousands):</label>
+            <input type="number" id="income_zone" name="income_zone" required><br>
+
+            <label for="spending_score_zone">Spending Score:</label>
+            <input type="number" id="spending_score_zone" name="spending_score_zone"><br>
+
+            <button type="submit">Predict Zone</button>
+        </form>
+
+        <div id="zone_result" class="result">
+            {% if predicted_zone is not none %}
+            <p>Predicted Zone: {{ predicted_zone }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
